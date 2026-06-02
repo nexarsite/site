@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astra Engenharia Sustentável | Energia Inteligente para o Futuro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/973/973288.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #0d1f3c;
+    --navy-light: #132848;
+    --blue: #1a4a8a;
+    --blue-bright: #1e6fd9;
+    --green: #00c97b;
+    --green-dark: #009e60;
+    --green-glow: rgba(0,201,123,0.15);
+    --white: #ffffff;
+    --off-white: #f0f4fa;
+    --gray: #8a9ab5;
+    --gray-light: #c8d4e8;
+    --text: #e8edf8;
+    --section-dark: #060e1e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; line-height: 1.1; }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--green);
+    background: var(--green-glow); border: 1px solid rgba(0,201,123,0.25);
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 1.4rem;
+  }
+  .tag::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+  /* ─── BUTTONS ─── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 32px; border-radius: 8px;
+    font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    text-decoration: none; border: none; letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: var(--green); color: var(--navy);
+    box-shadow: 0 0 0 0 rgba(0,201,123,0.4);
+  }
+  .btn-primary:hover {
+    background: #00e88a; transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,201,123,0.35);
+  }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.25);
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.5);
+    transform: translateY(-2px);
+  }
+  .btn svg { transition: transform 0.3s; }
+  .btn:hover svg { transform: translateX(4px); }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 20px 0;
+    transition: all 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(20px);
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--green), var(--blue-bright));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .logo-icon::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15));
+  }
+  .logo-text { font-family: 'Syne', sans-serif; }
+  .logo-text strong { display: block; font-size: 1.05rem; font-weight: 800; color: var(--white); }
+  .logo-text span { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.88rem; font-weight: 500; color: var(--gray-light);
+    text-decoration: none; transition: color 0.2s; letter-spacing: 0.02em;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta { display: flex; align-items: center; gap: 16px; }
+  .nav-cta .btn { padding: 11px 24px; font-size: 0.87rem; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 120px 0 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(26,74,138,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,201,123,0.12) 0%, transparent 50%),
+      linear-gradient(170deg, #060e1e 0%, #0a1628 50%, #0d1f3c 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.07;
+    background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .orb1 { width: 700px; height: 700px; right: -100px; top: -100px; background: rgba(26,74,138,0.4); }
+  .orb2 { width: 400px; height: 400px; left: 20%; bottom: -100px; background: rgba(0,201,123,0.12); }
+
+  /* Solar ring decoration */
+  .solar-ring {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    width: 520px; height: 520px; pointer-events: none;
+  }
+  .solar-ring svg { width: 100%; height: 100%; animation: rotate 40s linear infinite; }
+  @keyframes rotate { to { transform: rotate(360deg); } }
+  .solar-ring-inner {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(0,201,123,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    border: 1px solid rgba(0,201,123,0.2);
+    display: flex; align-items: center; justify-content: center;
+    animation: pulse-ring 4s ease-in-out infinite;
+  }
+  @keyframes pulse-ring { 0%,100%{box-shadow:0 0 0 0 rgba(0,201,123,0.1)} 50%{box-shadow:0 0 60px 20px rgba(0,201,123,0.08)} }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1280px; margin: 0 auto; padding: 0 40px;
+    max-width: 680px; margin-left: 80px;
+  }
+  .hero-pre { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .hero-line { width: 40px; height: 2px; background: var(--green); }
+  .hero-pre span { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); font-weight: 600; }
+
+  h1.hero-title {
+    font-size: clamp(3rem, 5.5vw, 5.2rem);
+    font-weight: 800; color: var(--white);
+    line-height: 1.0; margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+  h1.hero-title em { font-style: normal; color: var(--green); }
+
+  .hero-sub {
+    font-size: 1.1rem; color: var(--gray-light);
+    max-width: 560px; margin-bottom: 44px;
+    font-weight: 300; line-height: 1.7;
+  }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .hero-stats {
+    position: relative; z-index: 2;
+    max-width: 1280px; margin: 60px auto 0; padding: 0 80px;
+    display: flex; gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 44px;
+  }
+  .hero-stat {
+    flex: 1; padding: 0 40px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num {
+    font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800;
+    color: var(--white); line-height: 1;
+  }
+  .hero-stat-num span { color: var(--green); }
+  .hero-stat-label { font-size: 0.82rem; color: var(--gray); margin-top: 6px; letter-spacing: 0.03em; }
+
+  /* ─── SECTION COMMONS ─── */
+  section { position: relative; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+  .section-pad { padding: 120px 0; }
+
+  .section-header { margin-bottom: 70px; }
+  .section-header.center { text-align: center; }
+  h2.section-title {
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-weight: 800; color: var(--white);
+    letter-spacing: -0.02em; margin-bottom: 18px;
+  }
+  .section-sub { font-size: 1.05rem; color: var(--gray); max-width: 560px; line-height: 1.7; font-weight: 300; }
+  .section-header.center .section-sub { margin: 0 auto; }
+
+  /* ─── TICKER ─── */
+  .ticker-wrap {
+    background: var(--green); overflow: hidden;
+    padding: 14px 0; position: relative;
+  }
+  .ticker {
+    display: flex; gap: 60px; white-space: nowrap;
+    animation: ticker 25s linear infinite;
+  }
+  @keyframes ticker { to { transform: translateX(-50%); } }
+  .ticker-item {
+    font-family: 'Syne', sans-serif; font-size: 0.82rem;
+    font-weight: 700; color: var(--navy);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .ticker-item::after { content: '★'; font-size: 0.6rem; opacity: 0.5; }
+
+  /* ─── ABOUT ─── */
+  #sobre { background: var(--section-dark); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+  .about-visual {
+    position: relative; height: 520px;
+  }
+  .about-img-main {
+    position: absolute; right: 0; top: 0;
+    width: 85%; height: 400px;
+    border-radius: 16px; overflow: hidden;
+    background: linear-gradient(135deg, #0d2a4a, #1a4a8a);
+  }
+  .about-img-main .img-placeholder {
+    width: 100%; height: 100%;
+    background:
+      linear-gradient(135deg, rgba(26,74,138,0.6) 0%, rgba(0,201,123,0.2) 100%),
+      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='25' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem;
+  }
+  .about-img-accent {
+    position: absolute; left: 0; bottom: 20px;
+    width: 200px; height: 200px;
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    border-radius: 16px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,201,123,0.3);
+  }
+  .about-img-accent .num {
+    font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800;
+    color: var(--navy); line-height: 1;
+  }
+  .about-img-accent .lbl { font-size: 0.8rem; font-weight: 600; color: rgba(10,22,40,0.7); text-align: center; line-height: 1.3; }
+
+  .about-text h2 { margin-bottom: 20px; }
+  .about-text p { color: var(--gray-light); line-height: 1.8; margin-bottom: 20px; font-weight: 300; }
+  .mvv { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 36px; }
+  .mvv-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 20px 16px;
+  }
+  .mvv-card h4 { font-family: 'Syne', sans-serif; font-size: 0.82rem; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .mvv-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.5; margin: 0; }
+
+  /* ─── SERVICES ─── */
+  #servicos { background: var(--navy); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 36px 32px;
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    position: relative; overflow: hidden; cursor: pointer;
+    group: true;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,201,123,0.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--green), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .service-card:hover { transform: translateY(-6px); border-color: rgba(0,201,123,0.25); }
+  .service-card:hover::before { opacity: 1; }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(0,201,123,0.15), rgba(26,110,217,0.15));
+    border: 1px solid rgba(0,201,123,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 24px;
+    transition: all 0.4s;
+  }
+  .service-card:hover .service-icon {
+    background: linear-gradient(135deg, rgba(0,201,123,0.25), rgba(26,110,217,0.2));
+    box-shadow: 0 0 30px rgba(0,201,123,0.2);
+  }
+  .service-card h3 {
+    font-size: 1.15rem; font-weight: 700; color: var(--white);
+    margin-bottom: 12px; font-family: 'Syne', sans-serif;
+  }
+  .service-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 20px; font-size: 0.82rem; font-weight: 600;
+    color: var(--green); text-decoration: none;
+    opacity: 0; transform: translateY(6px); transition: all 0.3s;
+  }
+  .service-card:hover .service-link { opacity: 1; transform: translateY(0); }
+
+  /* ─── NUMBERS ─── */
+  #numeros {
+    background: linear-gradient(135deg, #061220 0%, #0a1c38 50%, #061220 100%);
+    overflow: hidden; position: relative;
+  }
+  .numbers-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(0,201,123,0.06) 0%, transparent 70%);
+  }
+  .numbers-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.07); }
+  .number-item {
+    background: transparent;
+    padding: 64px 40px; text-align: center;
+    position: relative;
+  }
+  .number-big {
+    font-family: 'Syne', sans-serif; font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 800; color: var(--white); line-height: 1;
+    background: linear-gradient(135deg, var(--white) 0%, var(--green) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .number-suffix { font-size: 0.65em; }
+  .number-label { font-size: 0.9rem; color: var(--gray); margin-top: 12px; }
+
+  /* ─── DIFFERENTIALS ─── */
+  #diferenciais { background: var(--section-dark); }
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .diff-visual {
+    background: linear-gradient(135deg, rgba(26,74,138,0.2), rgba(0,201,123,0.1));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px; padding: 48px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .diff-item {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 20px; border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+  .diff-item:hover { background: rgba(0,201,123,0.06); border-color: rgba(0,201,123,0.2); }
+  .diff-num {
+    font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
+    color: var(--green); min-width: 50px; line-height: 1; opacity: 0.4;
+  }
+  .diff-text h4 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--white); margin-bottom: 6px; }
+  .diff-text p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; font-weight: 300; }
+
+  .diff-badges { display: flex; flex-direction: column; gap: 20px; }
+  .diff-badge {
+    display: flex; align-items: center; gap: 20px; padding: 24px;
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 14px;
+    background: rgba(255,255,255,0.02); transition: all 0.3s;
+  }
+  .diff-badge:hover { border-color: rgba(0,201,123,0.25); background: rgba(0,201,123,0.04); }
+  .diff-badge-icon { font-size: 2rem; flex-shrink: 0; width: 52px; }
+  .diff-badge h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; color: var(--white); margin-bottom: 4px; }
+  .diff-badge p { font-size: 0.82rem; color: var(--gray); font-weight: 300; }
+
+  /* ─── PROJECTS ─── */
+  #projetos { background: var(--navy); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .project-card {
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: var(--navy-light);
+    transition: all 0.4s; cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-8px); border-color: rgba(0,201,123,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .project-img {
+    height: 200px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+  .project-img .bg { position: absolute; inset: 0; }
+  .project-img .emoji { position: relative; z-index: 1; }
+  .project-body { padding: 24px; }
+  .project-tag-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .project-tag {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
+    background: rgba(0,201,123,0.12); color: var(--green);
+    border: 1px solid rgba(0,201,123,0.2);
+  }
+  .project-body h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; color: var(--white); margin-bottom: 8px; }
+  .project-body p { font-size: 0.83rem; color: var(--gray); line-height: 1.6; margin-bottom: 16px; font-weight: 300; }
+  .project-meta { display: flex; gap: 20px; }
+  .project-meta span { font-size: 0.78rem; color: var(--gray-light); display: flex; align-items: center; gap: 5px; }
+
+  /* ─── TESTIMONIALS ─── */
+  #depoimentos { background: var(--section-dark); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .testimonial-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 32px;
+    transition: all 0.3s;
+  }
+  .testimonial-card:hover { border-color: rgba(0,201,123,0.2); background: rgba(0,201,123,0.03); }
+  .stars { color: #f59e0b; font-size: 0.85rem; margin-bottom: 16px; letter-spacing: 3px; }
+  .testimonial-card blockquote {
+    font-size: 0.9rem; color: var(--gray-light); line-height: 1.75;
+    font-style: italic; margin-bottom: 24px; font-weight: 300;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 14px; }
+  .author-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--white);
+    flex-shrink: 0;
+  }
+  .author-info strong { display: block; font-size: 0.9rem; color: var(--white); font-weight: 600; }
+  .author-info span { font-size: 0.78rem; color: var(--gray); }
+
+  /* ─── FAQ ─── */
+  #faq { background: var(--navy); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; overflow: hidden; cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  .faq-item.open { border-color: rgba(0,201,123,0.3); }
+  .faq-question {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 600; color: var(--white);
+    user-select: none;
+  }
+  .faq-toggle {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--gray); flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .faq-item.open .faq-toggle { background: var(--green); color: var(--navy); transform: rotate(45deg); }
+  .faq-answer {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    font-size: 0.88rem; color: var(--gray); line-height: 1.7; font-weight: 300;
+  }
+  .faq-answer-inner { padding: 0 24px 20px; }
+  .faq-item.open .faq-answer { max-height: 300px; }
+
+  /* ─── CTA ─── */
+  #cta {
+    background: linear-gradient(135deg, #020c1a 0%, #0a1628 100%);
+    position: relative; overflow: hidden;
+  }
+  .cta-orb {
+    position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
+  }
+  .cta-orb1 { width: 600px; height: 600px; left: -200px; top: -200px; background: rgba(0,201,123,0.08); }
+  .cta-orb2 { width: 400px; height: 400px; right: -100px; bottom: -100px; background: rgba(26,74,138,0.2); }
+  .cta-inner { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto; }
+  .cta-inner h2 { font-size: clamp(2.5rem, 5vw, 4rem); color: var(--white); margin-bottom: 20px; }
+  .cta-inner p { font-size: 1.1rem; color: var(--gray-light); margin-bottom: 44px; font-weight: 300; line-height: 1.7; }
+
+  /* ─── FORM ─── */
+  .cta-form {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 40px; text-align: left;
+    backdrop-filter: blur(20px);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .form-group label { font-size: 0.82rem; color: var(--gray-light); font-weight: 500; letter-spacing: 0.03em; }
+  .form-group input, .form-group select, .form-group textarea {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--white);
+    outline: none; transition: all 0.3s; width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--green); background: rgba(0,201,123,0.05);
+    box-shadow: 0 0 0 3px rgba(0,201,123,0.1);
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .form-group select option { background: var(--navy); }
+  .form-group textarea { resize: none; height: 100px; }
+  .form-submit { width: 100%; padding: 18px; font-size: 1rem; margin-top: 8px; }
+  .form-note { font-size: 0.75rem; color: var(--gray); text-align: center; margin-top: 12px; }
+
+  /* ─── FOOTER ─── */
+  footer { background: #020810; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-top { padding: 80px 0 60px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
+  .footer-brand p { font-size: 0.88rem; color: var(--gray); line-height: 1.7; margin: 20px 0 28px; font-weight: 300; max-width: 300px; }
+  .socials { display: flex; gap: 12px; }
+  .social-link {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; text-decoration: none; color: var(--gray);
+    transition: all 0.3s;
+  }
+  .social-link:hover { background: var(--green); color: var(--navy); border-color: var(--green); }
+  .footer-col h4 {
+    font-family: 'Syne', sans-serif; font-size: 0.82rem;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--white); margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a {
+    font-size: 0.86rem; color: var(--gray); text-decoration: none;
+    transition: color 0.2s; font-weight: 300;
+  }
+  .footer-col ul li a:hover { color: var(--green); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 0; display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-bottom p { font-size: 0.8rem; color: var(--gray); }
+  .cert-badges { display: flex; gap: 12px; }
+  .cert {
+    font-size: 0.7rem; color: var(--gray); padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+    font-weight: 500; letter-spacing: 0.05em;
+  }
+
+  /* ─── MOBILE NAV ─── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all 0.3s; border-radius: 2px; }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* stagger helpers */
+  .delay-1 { transition-delay: 0.1s !important; }
+  .delay-2 { transition-delay: 0.2s !important; }
+  .delay-3 { transition-delay: 0.3s !important; }
+  .delay-4 { transition-delay: 0.4s !important; }
+  .delay-5 { transition-delay: 0.5s !important; }
+
+  /* ─── SUCCESS STATE ─── */
+  .form-success {
+    display: none; text-align: center; padding: 40px;
+  }
+  .form-success.show { display: block; }
+  .form-success .check { font-size: 3rem; margin-bottom: 16px; }
+  .form-success h3 { font-family: 'Syne', sans-serif; color: var(--white); margin-bottom: 8px; }
+  .form-success p { color: var(--gray); font-size: 0.9rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .services-grid, .projects-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .about-grid, .diff-grid, .faq-grid { grid-template-columns: 1fr; gap: 48px; }
+    .solar-ring { display: none; }
+    .hero-content { margin-left: 40px; }
+    .hero-stats { padding: 0 40px; flex-wrap: wrap; }
+    .hero-stat { min-width: 180px; }
+    .numbers-grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta .btn:not(.btn-primary) { display: none; }
+    .hamburger { display: flex; }
+    .services-grid, .projects-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-content { margin-left: 0; }
+    .hero-stats { flex-direction: column; gap: 0; }
+    .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 24px 0; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; }
+    .container { padding: 0 20px; }
+    .section-pad { padding: 80px 0; }
+    .nav-inner { padding: 0 20px; }
+    .mvv { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="5" fill="white" opacity="0.9"/>
+          <path d="M11 2V4M11 18V20M2 11H4M18 11H20M4.22 4.22L5.64 5.64M16.36 16.36L17.78 17.78M17.78 4.22L16.36 5.64M5.64 16.36L4.22 17.78" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <strong>Astra Engenharia</strong>
+        <span>Sustentável</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="tel:+558000001234" class="btn btn-secondary">📞 0800 000 1234</a>
+      <a href="#cta" class="btn btn-primary">Solicitar Orçamento</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+
+  <!-- Solar ring decoration -->
+  <div class="solar-ring">
+    <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="260" cy="260" r="255" stroke="rgba(0,201,123,0.12)" stroke-width="1" stroke-dasharray="8 12"/>
+      <circle cx="260" cy="260" r="200" stroke="rgba(26,110,217,0.15)" stroke-width="1"/>
+      <circle cx="260" cy="260" r="145" stroke="rgba(0,201,123,0.08)" stroke-width="1" stroke-dasharray="4 8"/>
+      <!-- Solar panels dots -->
+      <circle cx="260" cy="5" r="5" fill="rgba(0,201,123,0.6)"/>
+      <circle cx="515" cy="260" r="5" fill="rgba(0,201,123,0.4)"/>
+      <circle cx="260" cy="515" r="5" fill="rgba(0,201,123,0.6)"/>
+      <circle cx="5" cy="260" r="5" fill="rgba(0,201,123,0.4)"/>
+      <!-- Panel grid -->
+      <g opacity="0.15">
+        <rect x="180" y="180" width="200" height="200" rx="8" fill="url(#sg)" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+        <line x1="213" y1="180" x2="213" y2="380" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+        <line x1="246" y1="180" x2="246" y2="380" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+        <line x1="279" y1="180" x2="279" y2="380" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+        <line x1="312" y1="180" x2="312" y2="380" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+        <line x1="345" y1="180" x2="345" y2="380" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+        <line x1="180" y1="247" x2="380" y2="247" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+        <line x1="180" y1="314" x2="380" y2="314" stroke="rgba(0,201,123,0.5)" stroke-width="0.5"/>
+      </g>
+      <defs>
+        <radialGradient id="sg" cx="50%" cy="50%"><stop offset="0%" stop-color="#00c97b" stop-opacity="0.3"/><stop offset="100%" stop-color="#1a4a8a" stop-opacity="0.1"/></radialGradient>
+      </defs>
+    </svg>
+    <div class="solar-ring-inner">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+        <circle cx="40" cy="40" r="18" fill="rgba(0,201,123,0.25)" stroke="rgba(0,201,123,0.5)" stroke-width="1.5"/>
+        <path d="M40 22V18M40 62V58M22 40H18M62 40H58M27.51 27.51L24.69 24.69M55.31 55.31L52.49 52.49M52.49 27.51L55.31 24.69M24.69 55.31L27.51 52.49" stroke="rgba(0,201,123,0.7)" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="40" cy="40" r="8" fill="rgba(0,201,123,0.5)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-pre">
+      <div class="hero-line"></div>
+      <span>15+ anos de excelência em energia solar</span>
+    </div>
+    <h1 class="hero-title">
+      Energia inteligente<br>para um futuro<br><em>sustentável.</em>
+    </h1>
+    <p class="hero-sub">
+      Projetamos soluções energéticas que reduzem custos, aumentam a eficiência e geram impacto positivo para empresas e residências em todo o Brasil.
+    </p>
+    <div class="hero-buttons">
+      <a href="#cta" class="btn btn-primary">
+        Solicitar Orçamento Gratuito
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#projetos" class="btn btn-secondary">
+        Conhecer Projetos
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat fade-up">
+      <div class="hero-stat-num">15<span>+</span></div>
+      <div class="hero-stat-label">Anos de mercado</div>
+    </div>
+    <div class="hero-stat fade-up delay-1">
+      <div class="hero-stat-num">2.000<span>+</span></div>
+      <div class="hero-stat-label">Projetos entregues</div>
+    </div>
+    <div class="hero-stat fade-up delay-2">
+      <div class="hero-stat-num">50<span> MW</span></div>
+      <div class="hero-stat-label">Instalados em operação</div>
+    </div>
+    <div class="hero-stat fade-up delay-3">
+      <div class="hero-stat-num">98<span>%</span></div>
+      <div class="hero-stat-label">Índice de satisfação</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item">Energia Solar Fotovoltaica</div>
+    <div class="ticker-item">Eficiência Energética Industrial</div>
+    <div class="ticker-item">Monitoramento 24/7</div>
+    <div class="ticker-item">Soluções para Agronegócio</div>
+    <div class="ticker-item">Consultoria Especializada</div>
+    <div class="ticker-item">Garantia Estendida</div>
+    <div class="ticker-item">Financiamento Facilitado</div>
+    <div class="ticker-item">Energia Solar Fotovoltaica</div>
+    <div class="ticker-item">Eficiência Energética Industrial</div>
+    <div class="ticker-item">Monitoramento 24/7</div>
+    <div class="ticker-item">Soluções para Agronegócio</div>
+    <div class="ticker-item">Consultoria Especializada</div>
+    <div class="ticker-item">Garantia Estendida</div>
+    <div class="ticker-item">Financiamento Facilitado</div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre" class="section-pad">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div class="about-img-main">
+          <div class="img-placeholder">
+            <svg width="180" height="180" viewBox="0 0 180 180" fill="none" opacity="0.3">
+              <rect x="10" y="60" width="160" height="100" rx="6" fill="none" stroke="rgba(0,201,123,0.6)" stroke-width="1.5"/>
+              <rect x="10" y="60" width="52" height="48" rx="3" fill="rgba(0,201,123,0.1)" stroke="rgba(0,201,123,0.4)" stroke-width="1"/>
+              <rect x="64" y="60" width="52" height="48" rx="3" fill="rgba(0,201,123,0.1)" stroke="rgba(0,201,123,0.4)" stroke-width="1"/>
+              <rect x="118" y="60" width="52" height="48" rx="3" fill="rgba(0,201,123,0.1)" stroke="rgba(0,201,123,0.4)" stroke-width="1"/>
+              <rect x="10" y="112" width="52" height="48" rx="3" fill="rgba(26,110,217,0.1)" stroke="rgba(26,110,217,0.4)" stroke-width="1"/>
+              <rect x="64" y="112" width="52" height="48" rx="3" fill="rgba(26,110,217,0.1)" stroke="rgba(26,110,217,0.4)" stroke-width="1"/>
+              <rect x="118" y="112" width="52" height="48" rx="3" fill="rgba(26,110,217,0.1)" stroke="rgba(26,110,217,0.4)" stroke-width="1"/>
+              <circle cx="90" cy="30" r="20" fill="none" stroke="rgba(255,180,0,0.5)" stroke-width="1.5"/>
+              <circle cx="90" cy="30" r="8" fill="rgba(255,180,0,0.3)"/>
+              <path d="M90 6V10M90 50V54M66 30H62M118 30H114M74 14L77 17M103 43L106 46M74 46L77 43M103 17L106 14" stroke="rgba(255,180,0,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="about-img-accent">
+          <div class="num">15+</div>
+          <div class="lbl">Anos de Excelência</div>
+        </div>
+      </div>
+      <div class="about-text fade-up delay-2">
+        <div class="tag">Nossa História</div>
+        <h2 class="section-title">Pioneiros em energia limpa no Brasil</h2>
+        <p>Fundada em 2009 em Belo Horizonte, a Astra Engenharia Sustentável nasceu com uma missão clara: democratizar o acesso à energia solar e transformar a forma como o Brasil consome energia. Ao longo de mais de 15 anos, crescemos de uma pequena consultoria para uma das mais respeitadas empresas de engenharia solar do país.</p>
+        <p>Hoje, com presença em todos os estados brasileiros e uma equipe de mais de 150 engenheiros e técnicos especializados, entregamos soluções completas — do estudo de viabilidade à manutenção contínua — para clientes residenciais, comerciais, industriais e do agronegócio.</p>
+        <p>Nosso compromisso vai além da tecnologia: acreditamos que cada projeto é uma contribuição real para um planeta mais limpo e uma economia mais eficiente.</p>
+        <div class="mvv">
+          <div class="mvv-card">
+            <h4>Missão</h4>
+            <p>Entregar soluções energéticas inovadoras que geram valor real para nossos clientes e para o planeta.</p>
+          </div>
+          <div class="mvv-card">
+            <h4>Visão</h4>
+            <p>Ser a referência nacional em engenharia de energia sustentável até 2030.</p>
+          </div>
+          <div class="mvv-card">
+            <h4>Valores</h4>
+            <p>Integridade, inovação, excelência técnica e compromisso com a sustentabilidade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="section-pad">
+  <div class="container">
+    <div class="section-header center fade-up">
+      <div class="tag">O que fazemos</div>
+      <h2 class="section-title">Soluções completas em energia</h2>
+      <p class="section-sub">Do projeto à operação, oferecemos um portfólio completo de serviços para todos os portes e segmentos.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon">☀️</div>
+        <h3>Projetos de Energia Solar</h3>
+        <p>Desenvolvimento completo de sistemas fotovoltaicos dimensionados para a demanda real de cada cliente, com engenharia de precisão e tecnologia de ponta.</p>
+        <a href="#cta" class="service-link">Solicitar projeto <span>→</span></a>
+      </div>
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon">📊</div>
+        <h3>Consultoria Energética</h3>
+        <p>Auditoria completa do consumo energético, identificação de ineficiências e elaboração de plano estratégico para redução de até 60% na conta de luz.</p>
+        <a href="#cta" class="service-link">Solicitar consultoria <span>→</span></a>
+      </div>
+      <div class="service-card fade-up delay-3">
+        <div class="service-icon">🏭</div>
+        <h3>Eficiência Energética Industrial</h3>
+        <p>Soluções especializadas para indústrias com foco em automação, correção do fator de potência, gestão de demanda e otimização de processos energéticos.</p>
+        <a href="#cta" class="service-link">Saiba mais <span>→</span></a>
+      </div>
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon">🏠</div>
+        <h3>Sistemas Fotovoltaicos Residenciais</h3>
+        <p>Instalação de painéis solares residenciais com retorno de investimento em até 4 anos, garantia de 25 anos nos módulos e assistência técnica vitalícia.</p>
+        <a href="#cta" class="service-link">Ver planos <span>→</span></a>
+      </div>
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon">🔧</div>
+        <h3>Monitoramento e Manutenção</h3>
+        <p>Plataforma própria de monitoramento em tempo real com alertas automáticos, relatórios mensais de performance e equipe técnica disponível 24/7.</p>
+        <a href="#cta" class="service-link">Ver planos <span>→</span></a>
+      </div>
+      <div class="service-card fade-up delay-3">
+        <div class="service-icon">🌾</div>
+        <h3>Soluções para Agronegócio</h3>
+        <p>Sistemas de energia solar para propriedades rurais, irrigação, secagem de grãos e armazenamento frio, com financiamento via Pronaf e linhas agrícolas.</p>
+        <a href="#cta" class="service-link">Saiba mais <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<section id="numeros" class="section-pad">
+  <div class="numbers-bg"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <div class="section-header center fade-up" style="margin-bottom:50px">
+      <div class="tag">Astra em números</div>
+      <h2 class="section-title">Resultados que falam por si</h2>
+    </div>
+    <div class="numbers-grid">
+      <div class="number-item fade-up">
+        <div class="number-big"><span class="count" data-target="15">0</span><span class="number-suffix">+</span></div>
+        <div class="number-label">Anos no mercado de energia renovável</div>
+      </div>
+      <div class="number-item fade-up delay-1">
+        <div class="number-big"><span class="count" data-target="2000">0</span><span class="number-suffix">+</span></div>
+        <div class="number-label">Projetos entregues em todo o Brasil</div>
+      </div>
+      <div class="number-item fade-up delay-2">
+        <div class="number-big"><span class="count" data-target="50">0</span><span class="number-suffix"> MW</span></div>
+        <div class="number-label">De capacidade instalada em operação</div>
+      </div>
+      <div class="number-item fade-up delay-3">
+        <div class="number-big"><span class="count" data-target="98">0</span><span class="number-suffix">%</span></div>
+        <div class="number-label">De satisfação dos nossos clientes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais" class="section-pad">
+  <div class="container">
+    <div class="diff-grid">
+      <div class="fade-up">
+        <div class="tag">Por que a Astra</div>
+        <h2 class="section-title">O que nos torna diferentes</h2>
+        <p class="section-sub" style="margin-bottom:40px">Com mais de uma década de experiência, construímos uma reputação baseada em resultados reais e relacionamentos duradouros.</p>
+        <div class="diff-badges">
+          <div class="diff-badge">
+            <div class="diff-badge-icon">🏆</div>
+            <div>
+              <h4>Top 10 empresas de energia solar do Brasil</h4>
+              <p>Reconhecida pelo ranking Aberto Energético 2024 como uma das mais inovadoras.</p>
+            </div>
+          </div>
+          <div class="diff-badge">
+            <div class="diff-badge-icon">✅</div>
+            <div>
+              <h4>Certificada pelo INMETRO e ANEEL</h4>
+              <p>Todos os projetos em conformidade com as normas técnicas brasileiras e internacionais.</p>
+            </div>
+          </div>
+          <div class="diff-badge">
+            <div class="diff-badge-icon">🤝</div>
+            <div>
+              <h4>Parceiro oficial de fabricantes líderes</h4>
+              <p>JA Solar, Canadian Solar, Fronius, SMA e Huawei — as melhores marcas do mercado.</p>
+            </div>
+          </div>
+          <div class="diff-badge">
+            <div class="diff-badge-icon">💰</div>
+            <div>
+              <h4>Financiamento em até 120 meses</h4>
+              <p>Parcerias com Banco do Brasil, Caixa Econômica e bancos privados com as melhores taxas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="diff-visual fade-up delay-2">
+        <div class="diff-item">
+          <div class="diff-num">01</div>
+          <div class="diff-text">
+            <h4>Engenharia própria e dedicada</h4>
+            <p>Mais de 80 engenheiros eletricistas e técnicos especializados em energia fotovoltaica, com atualização constante nas mais recentes tecnologias do setor.</p>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-num">02</div>
+          <div class="diff-text">
+            <h4>Tecnologia de monitoramento proprietária</h4>
+            <p>Plataforma AstraCloud com dashboards em tempo real, alertas automáticos e relatórios de performance acessíveis pelo celular ou computador, 24 horas por dia.</p>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-num">03</div>
+          <div class="diff-text">
+            <h4>Garantia estendida de 10 anos</h4>
+            <p>Além da garantia do fabricante, oferecemos 10 anos de garantia de instalação e performance, com SLA de atendimento em até 24 horas para qualquer ocorrência.</p>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-num">04</div>
+          <div class="diff-text">
+            <h4>Atendimento nacional com presença local</h4>
+            <p>Escritórios regionais em São Paulo, Rio de Janeiro, Belo Horizonte, Brasília, Porto Alegre, Recife e Salvador, com equipes técnicas distribuídas em todo o país.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section id="projetos" class="section-pad">
+  <div class="container">
+    <div class="section-header center fade-up">
+      <div class="tag">Cases de Sucesso</div>
+      <h2 class="section-title">Projetos que transformam</h2>
+      <p class="section-sub">Uma seleção de projetos que entregamos com excelência técnica e resultados superiores às expectativas.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-up delay-1">
+        <div class="project-img">
+          <div class="bg" style="background:linear-gradient(135deg,#1a4a8a,#00c97b30)"></div>
+          <div class="emoji">🏭</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag-row">
+            <span class="project-tag">Industrial</span>
+            <span class="project-tag">2,4 MWp</span>
+          </div>
+          <h3>Metalúrgica Horizonte — Contagem, MG</h3>
+          <p>Sistema de 2,4 MWp com 5.800 módulos e 3 inversores trifásicos, cobrindo 100% do consumo diurno da planta industrial e gerando economia de R$ 1,2 milhão ao ano.</p>
+          <div class="project-meta">
+            <span>📅 2023</span>
+            <span>⚡ 62% de redução na fatura</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade-up delay-2">
+        <div class="project-img">
+          <div class="bg" style="background:linear-gradient(135deg,#0a3a1a,#00c97b40)"></div>
+          <div class="emoji">🌾</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag-row">
+            <span class="project-tag">Agronegócio</span>
+            <span class="project-tag">850 kWp</span>
+          </div>
+          <h3>Fazenda Santa Clara — Sorriso, MT</h3>
+          <p>Solução fotovoltaica de 850 kWp para irrigação e armazenamento de grãos, eliminando geradores a diesel e reduzindo emissões em 480 toneladas de CO₂ por ano.</p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>🌿 Zero diesel no campo</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade-up delay-3">
+        <div class="project-img">
+          <div class="bg" style="background:linear-gradient(135deg,#1a2a5a,#1e6fd940)"></div>
+          <div class="emoji">🏢</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag-row">
+            <span class="project-tag">Comercial</span>
+            <span class="project-tag">380 kWp</span>
+          </div>
+          <h3>Shopping Vitória Plaza — Vitória, ES</h3>
+          <p>Carport fotovoltaico com 920 módulos no estacionamento, gerando energia para as áreas comuns e proporcionando pontos de recarga para veículos elétricos.</p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>🚗 40 pontos de recarga EV</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade-up delay-1">
+        <div class="project-img">
+          <div class="bg" style="background:linear-gradient(135deg,#2a1a0a,#f59e0b30)"></div>
+          <div class="emoji">🏨</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag-row">
+            <span class="project-tag">Hotelaria</span>
+            <span class="project-tag">220 kWp</span>
+          </div>
+          <h3>Resort Praia do Sol — Porto Seguro, BA</h3>
+          <p>Sistema híbrido com baterias de armazenamento para operação noturna, reduzindo 78% da conta energética e obtendo certificação ambiental Green Key para o resort.</p>
+          <div class="project-meta">
+            <span>📅 2023</span>
+            <span>🔋 Armazenamento em baterias</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade-up delay-2">
+        <div class="project-img">
+          <div class="bg" style="background:linear-gradient(135deg,#0a1a3a,#00c97b20)"></div>
+          <div class="emoji">🏫</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag-row">
+            <span class="project-tag">Institucional</span>
+            <span class="project-tag">120 kWp</span>
+          </div>
+          <h3>Escola Estadual Dom Pedro II — Recife, PE</h3>
+          <p>Projeto social em parceria com o Governo de Pernambuco para eletrificação limpa de 12 escolas públicas, beneficiando 8.000 alunos com economia revertida em material escolar.</p>
+          <div class="project-meta">
+            <span>📅 2022</span>
+            <span>📚 12 escolas atendidas</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade-up delay-3">
+        <div class="project-img">
+          <div class="bg" style="background:linear-gradient(135deg,#1a0a2a,#8b5cf640)"></div>
+          <div class="emoji">🏠</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag-row">
+            <span class="project-tag">Residencial</span>
+            <span class="project-tag">Condomínio</span>
+          </div>
+          <h3>Condomínio Reserva Verde — Campinas, SP</h3>
+          <p>Sistema compartilhado para condomínio de 120 unidades, com rateio automático de créditos energéticos via medição individualizada e app exclusivo para os moradores.</p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>🏘️ 120 famílias beneficiadas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos" class="section-pad">
+  <div class="container">
+    <div class="section-header center fade-up">
+      <div class="tag">O que dizem nossos clientes</div>
+      <h2 class="section-title">Mais de 2.000 histórias de sucesso</h2>
+      <p class="section-sub">A confiança dos nossos clientes é o nosso maior patrimônio. Veja o que eles falam sobre a Astra.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-up delay-1">
+        <div class="stars">★★★★★</div>
+        <blockquote>"A Astra superou todas as nossas expectativas. O projeto foi entregue no prazo, a economia na fatura chegou a 71% já no primeiro mês, e o suporte técnico é impecável. Recomendo sem hesitar para qualquer empresa."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">RC</div>
+          <div class="author-info">
+            <strong>Roberto Carvalho</strong>
+            <span>Diretor Industrial, MetalSul S/A — Porto Alegre, RS</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up delay-2">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Contratei a Astra para minha fazenda em Goiás e a transformação foi completa. Eliminar os geradores a diesel foi um sonho que se tornou realidade. O retorno do investimento veio em menos de 4 anos."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">FM</div>
+          <div class="author-info">
+            <strong>Fernanda Machado</strong>
+            <span>Proprietária Rural — Rio Verde, GO</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up delay-3">
+        <div class="stars">★★★★★</div>
+        <blockquote>"O processo foi muito transparente, do estudo de viabilidade até a conexão na rede. A plataforma AstraCloud é incrível — acompanho tudo pelo celular em tempo real. Profissionalismo exemplar em cada etapa."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">AS</div>
+          <div class="author-info">
+            <strong>Andréa Souza</strong>
+            <span>Gerente Operacional, Rede de Supermercados Fresco — SP</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up delay-1">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Contratamos a Astra para o nosso hotel e foi a melhor decisão que tomamos em termos de infraestrutura. Além da economia brutal na energia, conquistamos a certificação ambiental que nos diferencia da concorrência."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">GN</div>
+          <div class="author-info">
+            <strong>Gustavo Neves</strong>
+            <span>CEO, Grupo Hoteleiro Neves — Florianópolis, SC</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up delay-2">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Minha residência ficou totalmente energy-free durante o dia. A equipe foi super profissional, cumpriu o prazo à risca e me explicou tudo de forma clara. Indiquei para toda a família e vizinhança."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">LF</div>
+          <div class="author-info">
+            <strong>Lucas Figueiredo</strong>
+            <span>Engenheiro Civil — Belo Horizonte, MG</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up delay-3">
+        <div class="stars">★★★★★</div>
+        <blockquote>"A Astra nos ajudou a reduzir em 65% os custos de energia da nossa fábrica. Isso representou um aumento direto na nossa margem de lucro. O projeto de eficiência energética foi transformador para o negócio."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">PA</div>
+          <div class="author-info">
+            <strong>Patricia Albuquerque</strong>
+            <span>CFO, Indústria Textil Nordestin — Fortaleza, CE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-pad">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="fade-up">
+        <div class="tag">Perguntas Frequentes</div>
+        <h2 class="section-title">Tudo que você precisa saber</h2>
+        <p class="section-sub" style="margin-bottom:36px">Tem dúvidas? Nossa equipe técnica respondeu as perguntas mais comuns sobre energia solar e eficiência energética.</p>
+        <div style="background:rgba(0,201,123,0.08);border:1px solid rgba(0,201,123,0.2);border-radius:16px;padding:28px">
+          <h4 style="font-family:'Syne',sans-serif;color:var(--green);font-size:0.9rem;margin-bottom:8px">Ainda tem dúvidas?</h4>
+          <p style="color:var(--gray);font-size:0.85rem;margin-bottom:16px;font-weight:300">Nossa equipe de especialistas está disponível para responder qualquer questão sobre o seu projeto.</p>
+          <a href="#cta" class="btn btn-primary" style="padding:12px 24px;font-size:0.88rem">Falar com Especialista</a>
+        </div>
+      </div>
+      <div class="faq-list fade-up delay-2">
+        <div class="faq-item open">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Quanto tempo leva para instalar um sistema solar?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Para sistemas residenciais, o tempo médio de instalação é de 2 a 5 dias úteis após a aprovação da concessionária. Para projetos industriais e comerciais de grande porte, o prazo varia de 15 a 90 dias dependendo da complexidade. O processo de aprovação junto à distribuidora pode levar de 30 a 90 dias — nós cuidamos de toda a documentação por você.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Qual é o retorno do investimento (payback)?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">O prazo médio de payback para sistemas residenciais é de 4 a 6 anos, e para sistemas comerciais/industriais, de 3 a 5 anos. Com o financiamento em até 120 meses, a parcela costuma ser menor do que a economia gerada na conta de luz desde o primeiro mês, ou seja, o sistema se paga sozinho desde o início.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Os painéis funcionam em dias nublados?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Sim! Os painéis solares modernos geram energia mesmo em dias nublados, utilizando a luz difusa disponível. A eficiência pode cair entre 20% e 40% em dias muito encobertos, mas o sistema continua gerando. No Brasil, mesmo regiões com menos sol como Sul e Sudeste têm irradiação suficiente para sistemas fotovoltaicos serem altamente viáveis e lucrativos.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Qual a vida útil de um sistema solar?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Os módulos fotovoltaicos têm garantia de desempenho de 25 anos pelos fabricantes, mantendo pelo menos 80% da eficiência original ao final do período. Na prática, painéis instalados há 30+ anos ainda operam com eficiência satisfatória. Os inversores têm vida útil de 10 a 15 anos. A Astra oferece 10 anos de garantia de instalação, independentemente da garantia do fabricante.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Preciso fazer manutenção nos painéis?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">A manutenção é muito simples. A principal recomendação é a limpeza dos módulos a cada 6 meses (ou mais frequente em locais com muita poeira ou poluição). Oferecemos planos de manutenção preventiva que incluem inspeção termográfica anual, limpeza técnica, verificação elétrica e atualização de firmware dos inversores. Com nossa plataforma AstraCloud, monitoramos remotamente qualquer anomalia antes que ela afete a geração.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            A energia gerada pode ser vendida para a concessionária?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Pelo sistema de compensação de energia (net metering), toda energia excedente gerada pelo seu sistema é injetada na rede elétrica e vira créditos que você pode usar para abater nas próximas contas de luz, em qualquer horário. Os créditos têm validade de 60 meses. A partir de 2023, novos projetos acima de 30 kWp têm regras específicas da ANEEL sobre a forma de compensação, que explicamos detalhadamente na nossa consultoria.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="section-pad">
+  <div class="cta-orb cta-orb1"></div>
+  <div class="cta-orb cta-orb2"></div>
+  <div class="container">
+    <div class="cta-inner fade-up" style="margin-bottom:60px">
+      <div class="tag" style="margin:0 auto 1.4rem">Análise Gratuita</div>
+      <h2>Solicite uma análise gratuita do seu consumo energético</h2>
+      <p>Nossa equipe realiza um diagnóstico completo da sua conta de energia e apresenta um projeto personalizado com simulação financeira sem custo e sem compromisso.</p>
+    </div>
+    <div style="max-width:700px;margin:0 auto" class="fade-up delay-2">
+      <div class="cta-form" id="quoteForm">
+        <h3 style="font-family:'Syne',sans-serif;color:var(--white);font-size:1.3rem;margin-bottom:28px">📋 Formulário de Orçamento</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome completo *</label>
+            <input type="text" placeholder="João da Silva" id="f-nome">
+          </div>
+          <div class="form-group">
+            <label>E-mail *</label>
+            <input type="email" placeholder="joao@empresa.com.br" id="f-email">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefone / WhatsApp *</label>
+            <input type="tel" placeholder="(11) 99999-0000" id="f-tel">
+          </div>
+          <div class="form-group">
+            <label>Cidade / Estado *</label>
+            <input type="text" placeholder="São Paulo, SP" id="f-cidade">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo de projeto</label>
+            <select id="f-tipo">
+              <option value="">Selecione...</option>
+              <option>Residencial</option>
+              <option>Comercial / Empresarial</option>
+              <option>Industrial</option>
+              <option>Agronegócio</option>
+              <option>Condomínio</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Valor médio da conta de luz</label>
+            <select id="f-conta">
+              <option value="">Selecione...</option>
+              <option>Até R$ 500</option>
+              <option>R$ 500 – R$ 2.000</option>
+              <option>R$ 2.000 – R$ 10.000</option>
+              <option>R$ 10.000 – R$ 50.000</option>
+              <option>Acima de R$ 50.000</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mensagem (opcional)</label>
+          <textarea placeholder="Descreva seu projeto, necessidades específicas ou dúvidas..." id="f-msg"></textarea>
+        </div>
+        <button class="btn btn-primary form-submit" onclick="submitForm()">
+          Solicitar Análise Gratuita
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="form-note">🔒 Seus dados estão protegidos. Não compartilhamos informações com terceiros.</p>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="check">✅</div>
+        <h3>Solicitação enviada com sucesso!</h3>
+        <p style="color:var(--gray);margin-top:8px">Em até 24 horas úteis um de nossos especialistas entrará em contato para agendar sua análise gratuita.</p>
+        <div style="margin-top:24px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+          <a href="https://wa.me/5508000001234" class="btn btn-primary" style="font-size:0.9rem;padding:14px 24px">💬 Falar pelo WhatsApp</a>
+          <a href="tel:+558000001234" class="btn btn-secondary" style="font-size:0.9rem;padding:14px 24px">📞 Ligar Agora</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <div class="logo-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <circle cx="11" cy="11" r="5" fill="white" opacity="0.9"/>
+                <path d="M11 2V4M11 18V20M2 11H4M18 11H20M4.22 4.22L5.64 5.64M16.36 16.36L17.78 17.78M17.78 4.22L16.36 5.64M5.64 16.36L4.22 17.78" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="logo-text">
+              <strong>Astra Engenharia</strong>
+              <span>Sustentável</span>
+            </div>
+          </a>
+          <p>Desde 2009 transformando a forma como o Brasil consome energia. Mais de 2.000 projetos entregues, 50 MW instalados e 98% de clientes satisfeitos.</p>
+          <div class="socials">
+            <a href="#" class="social-link" title="LinkedIn">in</a>
+            <a href="#" class="social-link" title="Instagram">ig</a>
+            <a href="#" class="social-link" title="YouTube">yt</a>
+            <a href="#" class="social-link" title="Facebook">fb</a>
+            <a href="#" class="social-link" title="WhatsApp">wa</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="#">Energia Solar Residencial</a></li>
+            <li><a href="#">Energia Solar Comercial</a></li>
+            <li><a href="#">Eficiência Industrial</a></li>
+            <li><a href="#">Agronegócio Solar</a></li>
+            <li><a href="#">Consultoria Energética</a></li>
+            <li><a href="#">Monitoramento 24/7</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre a Astra</a></li>
+            <li><a href="#">Nossa Equipe</a></li>
+            <li><a href="#">Cases de Sucesso</a></li>
+            <li><a href="#">Blog e Artigos</a></li>
+            <li><a href="#">Certificações</a></li>
+            <li><a href="#">Trabalhe Conosco</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="tel:+558000001234">☎ 0800 000 1234 (Grátis)</a></li>
+            <li><a href="mailto:contato@astraenergia.com.br">✉ contato@astraenergia.com.br</a></li>
+            <li><a href="#">📍 Av. Contorno, 5890 — 12º Andar<br>&nbsp;&nbsp;&nbsp;&nbsp; Belo Horizonte, MG — 30110-924</a></li>
+            <li><a href="#">🕐 Seg–Sex: 8h–18h<br>&nbsp;&nbsp;&nbsp;&nbsp; Sáb: 8h–13h</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>SITE FICTÍCIO CRIADO POR NEXAR SITES</p>
+      <div class="cert-badges">
+        <a href="https://nexarsite.github.io/landing/" target="_blank">
+    <img src="https://i.ibb.co/nqJhy0pj/IMG-1477.png" alt="Nexar Logo" style="height: 50px; width: auto;">
+  </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Intersection Observer for fade animations
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// FAQ toggle
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Counter animation
+function animateCount(el) {
+  const target = parseInt(el.dataset.target);
+  const dur = 2000;
+  const step = target / (dur / 16);
+  let cur = 0;
+  const timer = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = Math.floor(cur).toLocaleString('pt-BR');
+    if (cur >= target) clearInterval(timer);
+  }, 16);
+}
+
+const countObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(e.target);
+      countObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count').forEach(el => countObs.observe(el));
+
+// Form submit
+function submitForm() {
+  const nome = document.getElementById('f-nome').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const tel = document.getElementById('f-tel').value.trim();
+  if (!nome || !email || !tel) {
+    alert('Por favor, preencha pelo menos nome, e-mail e telefone.');
+    return;
+  }
+  document.getElementById('quoteForm').style.display = 'none';
+  const s = document.getElementById('formSuccess');
+  s.classList.add('show');
+  s.style.display = 'block';
+}
+
+// Mobile menu toggle (simplified)
+function toggleMenu() {
+  // Could be expanded for a mobile drawer
+  const links = document.querySelector('.nav-links');
+  if (links) {
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '70px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(10,22,40,0.98)';
+    links.style.padding = '20px 40px';
+    links.style.borderTop = '1px solid rgba(255,255,255,0.07)';
+    links.style.gap = '16px';
+    links.style.zIndex = '999';
+  }
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Phone mask
+const telInput = document.getElementById('f-tel');
+if (telInput) {
+  telInput.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length <= 10) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    else v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    this.value = v;
+  });
+}
+</script>
+</body>
+</html>
